@@ -1,6 +1,191 @@
+1) Ropi'nin Kimliği (h1s1.py)
+#String contact
+ad = "ahmet"
+soyad = "yılmaz"
+yas = 22
+# msj = "My name is " + ad + " " + soyad + "." + "I'm " + str(yas) + " years old."
+# string format
+# msj = "My name {} {}. I'm {} years old.".format(ad, soyad, yas)
+# msj = "My name {1} {0}. I'm {2} years old.".format(ad, soyad, yas)
+msj = "My name {a} {s}. I'm {y} years old.".format(a=ad, s=soyad, y=yas)
+
+# f-string
+msj = f"My name {ad} {soyad}. I'm {yas} years old.".format(ad, soyad, yas)
+print(msj)
+
+
+
+2) Aritmetik Ortalama (h1s2.py)
 def aritmetik_ortalama(sayilar):
     return sum(sayilar) / len(sayilar)
 
 # Kullanım
-veri = [10, 20, 30, ]
-print(aritmetik_ortalama(veri)) # Çıktı: 20.0
+veri = [10, 20, 30, 40]
+print(aritmetik_ortalama(veri)) # Çıktı: 25.0
+
+3) Santigrat → Fahrenhayt (h1s3.py):
+
+# Santigrat'ı Fahrenhayt'a Çevirme
+# Formül: (C * 9/5) + 32
+
+def celsius_to_fahrenheit():
+    try:
+        # Kullanıcıdan girdi al
+        celsius = float(input("Santigrat (°C) değerini girin: "))
+        
+        # Dönüşüm hesabı
+        fahrenheit = (celsius * 9/5) + 32
+        
+        # Sonucu yazdır
+        print(f"{celsius}°C = {fahrenheit}°F")
+        
+    except ValueError:
+        print("Lütfen geçerli bir sayı girin.")
+
+# Fonksiyonu çalıştır
+if __name__ == "__main__":
+    celsius_to_fahrenheit()
+
+
+4) Üçgen Alanı (h1s4.py):
+
+# Kullanıcıdan giriş alma
+taban = float(input("Üçgenin tabanını girin: "))
+yukseklik = float(input("Üçgenin yüksekliğini girin: "))
+
+# Alan hesaplama
+alan = 0.5 * taban * yukseklik
+
+print(f"Üçgenin alanı: {alan}")
+
+5) Dikdörtgen Alan ve Çevre (h1s5.py):
+# Kullanıcıdan kenar uzunluklarını al
+kisa_kenar = float(input("Kısa kenarı girin: "))
+uzun_kenar = float(input("Uzun kenarı girin: "))
+
+# Hesaplamalar
+alan = kisa_kenar * uzun_kenar
+cevre = 2 * (kisa_kenar + uzun_kenar)
+
+# Sonuçları ekrana yazdır
+print("Dikdörtgenin Alanı:", alan)
+print("Dikdörtgenin Çevresi:", cevre)
+
+6) Daire Çevresi ve Alanı (h1s6.py):
+import math
+
+# Kullanıcıdan yarıçapı al
+yaricap = float(input("Dairenin yarıçapını giriniz: "))
+
+# Hesaplamalar
+# Alan = π * r^2
+alan = math.pi * (yaricap ** 2)
+# Çevre = 2 * π * r
+cevre = 2 * math.pi * yaricap
+
+# Sonuçları ekrana yazdır (virgülden sonra 2 basamak)
+print(f"Dairenin Alanı: {alan:.2f}")
+print(f"Dairenin Çevresi: {cevre:.2f}")
+
+
+
+
+
+7) Alışveriş Kasası (h1s7.py):
+
+
+# Ürün veritabanı (Fiyatlar TL cinsinden)
+urunler = {
+    1: {"ad": "Süt", "fiyat": 25.0},
+    2: {"ad": "Ekmek", "fiyat": 10.0},
+    3: {"ad": "Peynir", "fiyat": 120.0},
+    4: {"ad": "Yumurta (10'lu)", "fiyat": 45.0}
+}
+
+sepet = []
+kdv_orani = 0.20 # %20 KDV
+
+def menuyu_goster():
+    print("\n--- Market Ürünleri ---")
+    for kod, detay in urunler.items():
+        print(f"{kod} - {detay['ad']}: {detay['fiyat']} TL")
+
+def sepeti_goster():
+    print("\n--- Alışveriş Sepetiniz ---")
+    if not sepet:
+        print("Sepetiniz boş.")
+        return 0
+    
+    toplam = 0
+    for i, urun in enumerate(sepet, 1):
+        print(f"{i}. {urun['ad']} - {urun['fiyat']} TL")
+        toplam += urun['fiyat']
+    
+    print("-" * 25)
+    print(f"Ara Toplam: {toplam:.2f} TL")
+    return toplam
+
+# Ana Döngü
+while True:
+    menuyu_goster()
+    islem = input("\nEklemek istediğiniz ürün kodunu girin (Çıkış için 'q', Fiş için 't'): ").lower()
+
+    if islem == 'q':
+        print("Sistemden çıkılıyor. İyi günler!")
+        break
+    
+    elif islem == 't':
+        ara_toplam = sepeti_goster()
+        if ara_toplam > 0:
+            kdv = ara_toplam * kdv_orani
+            genel_toplam = ara_toplam + kdv
+            print(f"KDV (%%{int(kdv_orani*100)}): {kdv:.2f} TL")
+            print(f"Ödenecek Tutar: {genel_toplam:.2f} TL")
+            print("--- Bizi tercih ettiğiniz için teşekkür ederiz ---")
+            break
+        
+    else:
+        try:
+            urun_kodu = int(islem)
+            if urun_kodu in urunler:
+                sepet.append(urunler[urun_kodu])
+                print(f"'{urunler[urun_kodu]['ad']}' sepete eklendi.")
+            else:
+                print("Geçersiz ürün kodu!")
+        except ValueError:
+            print("Lütfen geçerli bir işlem veya ürün kodu girin.")
+
+8) İndirimli Fiyat (h1s8.py):
+# Verilen değişkenler
+orijinal_fiyat = 500  # Ürünün ilk fiyatı
+indirim_orani = 20    # Uygulanacak indirim yüzdesi (%)
+ 
+ # İndirim miktarını ve indirimli fiyatı hesaplama
+indirim_tutari = (orijinal_fiyat * indirim_orani) / 100
+indirimli_fiyat = orijinal_fiyat - indirim_tutari
+ 
+ # Sonucu ekrana yazdırma
+print(f"Orijinal Fiyat: {orijinal_fiyat} TL")
+print(f"İndirim Tutarı: {indirim_tutari} TL")
+print(f"İndirimli Fiyat: {indirimli_fiyat} TL")
+
+9) KDV Hesaplama (h1s9.py):
+musteriAd = "mehmet"
+musteriSoyad = "saltık"
+musteriTelefon = "05896557777"
+musteriEmail = "[infomehmetsaltık@.com](mailto:info@mehmetsaltık.com)"
+musteriAdres = "izmir"
+
+urun1Adi = "kablosuz Mouse"
+urun1Fiyat = 550
+
+urun2Adı = "Kablosuz klawye"
+urun2Fiyat = 650
+
+urun3Adı = "Kablosuz klawye"
+urun3Fiyat = 55000
+
+toplamOdenenUcret = urun1Fiyat + urun2Fiyat + urun3Fiyat
+
+print("Toplam ödenen miktar: " + str(toplamOdenenUcret))
+print("Toplam kdv oranı: " + str(toplamOdenenUcret * 0.18))

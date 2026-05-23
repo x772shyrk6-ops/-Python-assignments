@@ -155,6 +155,8 @@ while True:
         except ValueError:
             print("Lütfen geçerli bir işlem veya ürün kodu girin.")
 
+
+
 8) İndirimli Fiyat (h1s8.py):
 # Verilen değişkenler
 orijinal_fiyat = 500  # Ürünün ilk fiyatı
@@ -189,3 +191,119 @@ toplamOdenenUcret = urun1Fiyat + urun2Fiyat + urun3Fiyat
 
 print("Toplam ödenen miktar: " + str(toplamOdenenUcret))
 print("Toplam kdv oranı: " + str(toplamOdenenUcret * 0.18))
+
+10) Zaman Dönüştürme:
+from datetime import datetime
+
+tarih_metni = "24.05.2026"
+cevrilen_tarih = datetime.strptime(tarih_metni, "%d.%m.%Y")
+
+print(cevrilen_tarih.year)  # Çıktı: 2026
+
+
+
+11) Saat Dönüştürme :
+from datetime import datetime
+
+saat_metni = "14:30"
+saat_objesi = datetime.strptime(saat_metni, "%H:%M")
+
+print(saat_objesi.time())  # Çıktı: 14:30:00
+
+
+
+12) Not Ortalaması:
+
+# Kullanıcıdan notları ondalıklı sayı (float) olarak alıyoruz
+vize = float(input("Vize notunuzu girin: "))
+final = float(input("Final notunuzu girin: "))
+
+# Yüzdelik oranlara göre ortalamayı hesaplıyoruz
+ortalama = (vize * 0.40) + (final * 0.60)
+
+print(f"Dönem Sonu Ortalamanız: {ortalama}")
+
+# Geçme ve kalma koşulu
+if ortalama >= 50 and final >= 50:
+    print("Tebrikler, dersi geçtiniz!")
+else:
+    print("Maalesef dersten kaldınız.")
+
+
+13) Metin Birleştirme :
+
+isim = "Ahmet"
+soyisim = "Yılmaz"
+tam_isim = f"{isim} {soyisim}"
+print(tam_isim) # Çıktı: Ahmet Yılmaz
+
+
+14) İsmin Büyük Harfi :
+isim = "ahmet"
+print(isim.upper())  # Çıktı: AHMET
+
+
+
+15) Metin Uzunluğu:
+
+metin = "Merhaba Dünya"
+uzunluk = len(metin)
+
+print(uzunluk)  # Çıktı: 13
+
+
+
+
+16) İki Sayının Yer Değiştirmesi :
+
+x = 5
+x, y = y, x  # x ve y'nin değerleri yer değiştirir
+
+
+17) Bölme Sonucu ve Kalan:
+
+bolunen = 17
+bolen = 5
+
+# 1. Bölüm (Tam sayı kısmı): // operatörü kullanılır
+bolum = bolunen // bolen 
+print(f"Bölüm: {bolum}")  # Çıktı: 3
+
+# 2. Kalan: % (Mod) operatörü kullanılır
+kalan = bolunen % bolen
+print(f"Kalan: {kalan}")  # Çıktı: 2
+
+# 3. Ondalıklı Bölüm: / operatörü kullanılır
+ondalikli_sonuc = bolunen / bolen
+print(f"Ondalıklı Sonuç: {ondalikli_sonuc}")  # Çıktı: 3.4
+
+
+
+18) Ortalama Yuvarlama:
+
+sayilar = [15, 20, 22, 18]
+
+# Ortalamayı bulma
+ortalama = sum(sayilar) / len(sayilar) # 18.75
+
+# Sonucu 1 ondalık basamağa yuvarlama
+sonuc = round(ortalama, 1) # Çıktı: 18.8
+
+print(sonuc)
+
+
+19) Metre → cm ve mm:
+
+# Metre değerini kullanıcıdan alıyoruz
+metre = float(input("Metre değerini girin: "))
+
+# Dönüşüm işlemleri
+cm = metre * 100
+mm = metre * 1000
+
+
+
+
+# Sonuçları ekrana yazdırıyoruz
+print(f"{metre} metre = {cm} cm")
+print(f"{metre} metre = {mm} mm")
